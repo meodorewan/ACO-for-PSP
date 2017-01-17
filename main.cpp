@@ -1,37 +1,51 @@
-#include <iostream>
-#include <sstream>
-#include <vector>
-#include <cstring>
-#include <algorithm>
-#include <fstream>
-#include <string>
-#include <ctime>
-#include <map>
+#include <bits/stdc++.h>
 
 #define MAXA 20
 #define MAXN 280
 
 using namespace std;
-ofstream flog;                          // file log
-string file_name;                       // ten file log va file out
-int number_of_round;                    // so round kien chay
-int ant_per_round;                      // so kien chay 1 round
-int time_limit;                         // gioi han thoi gian chay
-int reset_count_down;                   // so lan kq can lap de reset mui
-double alpha;                           // alpha
-double beta;                            // beta
-double rho;                             // toc do bay hoi
-int ls_flag;                            // cach local_search
-int seed;                               // so khoi tao ham random
-int k;                                  // so luong huong duoc luu
-string s;                               // xau nhap vao
-int n;                                  // do dai xau
-double e[MAXA][MAXA];                   // ma tran nang luong MJ
-string AA;                              // xau bieu dien cac amino acid
-vector<double> T[MAXN];                 // ma tran mui
+ofstream flog;                                          // file log
+string file_name;                                       // ten file log va file out
+int number_of_round;                                    // so round kien chay
+int ant_per_round;                                      // so kien chay 1 round
+int time_limit;                                         // gioi han thoi gian chay
+int reset_count_down;                                   // so lan kq can lap de reset mui
+double alpha;                                           // alpha
+double beta;                                            // beta
+double rho;                                             // toc do bay hoi
+int ls_flag;                                            // cach local_search
+int seed;                                               // so khoi tao ham random
+int k;                                                  // so luong huong duoc luu
+string s;                                               // xau nhap vao
+int n;                                                  // do dai xau
+const string AA = "CMFILVWYAGTSQNEDHRKP";               // xau bieu dien cac amino acid
+vector<double> T[MAXN];                                 // ma tran mui
 int x0[12] = { 1,-1,-1, 0, 1,-1, 1, 1, 0, 0,-1, 0};
 int y0[12] = { 1,-1, 1, 1, 0, 0,-1, 0, 1,-1, 0,-1};
 int z0[12] = { 0, 0, 0,-1, 1,-1, 0,-1, 1,-1, 1, 1};
+
+const double MJ_ENERGY[20][20] = {                      //ma tran MJ energy
+    {-1.06, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0.19, 0.04, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {-0.23, -0.42, -0.44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0.16, -0.28, -0.19, -0.22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {-0.08, -0.2, -0.3, -0.41, -0.27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0.06, -0.14, -0.22, -0.25, -0.29, -0.29, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0.08, -0.67, -0.16, 0.02, -0.09, -0.17, -0.12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0.04, -0.13, 0, 0.11, 0.24, 0.02, -0.04, -0.06, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0.25, 0.03, -0.22, -0.01, -0.1, -0.09, 0.09, -0.13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {-0.08, 0.19, 0.38, 0.25, 0.23, 0.16, 0.18, 0.14, -0.07, -0.38, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0.19, 0.19, 0.31, 0.14, 0.2, 0.25, 0.22, 0.13, -0.09, -0.26, 0.03, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {-0.02, 0.14, 0.29, 0.21, 0.25, 0.18, 0.34, 0.09, -0.06, -0.16, -0.08, 0.2, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0.05, 0.46, 0.49, 0.36, 0.26, 0.24, 0.08, -0.2, 0.08, -0.06, -0.14, -0.14, 0.29, 0, 0, 0, 0, 0, 0, 0},
+    {0.13, 0.08, 0.18, 0.53, 0.3, 0.5, 0.06, -0.2, 0.28, -0.14, -0.11, -0.14, -0.25, -0.53, 0, 0, 0, 0, 0, 0},
+    {0.69, 0.44, 0.27, 0.35, 0.43, 0.34, 0.29, -0.1, 0.26, 0.25, 0, -0.26, -0.17, -0.32, -0.03, 0, 0, 0, 0, 0},
+    {0.03, 0.65, 0.39, 0.59, 0.67, 0.58, 0.24, 0, 0.12, -0.22, -0.29, -0.31, -0.17, -0.3, -0.15, 0.04, 0, 0, 0, 0},
+    {-0.19, 0.99, -0.16, 0.49, 0.16, 0.19, -0.12, -0.34, 0.34, 0.2, -0.19, -0.05, -0.02, -0.24, -0.45, -0.39, -0.29, 0, 0, 0},
+    {0.24, 0.31, 0.41, 0.42, 0.35, 0.3, -0.16, -0.25, 0.43, -0.04, -0.35, 0.17, -0.52, -0.14, -0.74, -0.72, -0.12, 0.11, 0, 0},
+    {0.71, 0, 0.44, 0.36, 0.19, 0.44, 0.22, -0.21, 0.14, 0.11, -0.09, -0.13, -0.38, -0.33, -0.97, -0.76, 0.22, 0.75, 0.25, 0},
+    {0, -0.34, 0.2, 0.25, 0.42, 0.09, -0.28, -0.33, 0.1, -0.11, -0.07, 0.01, -0.42, -0.18, -0.1, 0.04, -0.21, -0.38, 0.11, 0.26}
+};
 
 
 namespace random_picker
@@ -137,7 +151,7 @@ namespace parser
         // change output stream precision
         flog.precision(2); flog << fixed;
         cout.precision(2); cout << fixed;
-        AA = "";
+        //AA = "";
         // gan ma tran MJ
     }
 }
@@ -185,7 +199,7 @@ struct Solution
         {
             p = convert::to_int(x + x0[j], y + y0[j], z + z0[j]);
             if(visited.count(p) > 0)
-                E_MJ += e[visited[p]][amino_acid];
+                E_MJ += MJ_ENERGY[visited[p]][amino_acid];
         }
     }
 };

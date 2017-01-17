@@ -32,7 +32,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="4RXN.in" />
+		<Unit filename="Guided-macro-mutation-in-a-graded-energy-based-genetic-algorithm.pdf" />
+		<Unit filename="MJEnergyModel.txt" />
+		<Unit filename="README.md" />
 		<Unit filename="main.cpp" />
+		<Unit filename="tools/createMJEnergyModel.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
