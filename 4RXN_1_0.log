@@ -1,0 +1,13 @@
+ACO for Protein Structure Prediction Problem
+Test                           : 4RXN
+
+Parameter-settings
+number_of_round                : 500
+ant_per_round                  : 100
+time_limit                     : 2147483 (s)
+reset_count_down               : 10
+alpha                          : 1
+beta                           : 3
+rho                            : 0.3
+ls_flag                        : 0
+seed                           : 0
