@@ -4,10 +4,12 @@
 #define MAXN 280
 #define eps 0.01
 #define INF 123456789
+#define epsilon 0.0000001
 
 using namespace std;
 ofstream flog;                                          // file log
 string file_name;                                       // ten file log va file out
+string output_file;
 int number_of_round;                                    // so round kien chay
 int ant_per_round;                                      // so kien chay 1 round
 int time_limit;                                         // gioi han thoi gian chay
@@ -24,6 +26,7 @@ int n;                                                  // do dai xau
 const string AA = "CMFILVWYAGTSQNEDHRKP";               // xau bieu dien cac amino acid
 int a[MAXN];                                            // chuyen tu xau s sang so
 int MAXT;                                               // 12 mu k
+int algo_flag;                                          // loai thuat toan
 vector<double> T[MAXN];                                 // ma tran mui
 int x0[12] = { 1,-1,-1, 0, 1,-1, 1, 1, 0, 0,-1, 0};
 int y0[12] = { 1,-1, 1, 1, 0, 0,-1, 0, 1,-1, 0,-1};
@@ -98,9 +101,10 @@ namespace parser
         time_limit              = INT_MAX;
         reset_count_down        = 10;
         alpha                   = 1.0;
-        beta                    = 3.0;
+        beta                    = 1.0;
         rho                     = 0.3;
         ls_flag                 = 0;
+        algo_flag               = 0;
         seed                    = 0;
         k                       = 1;
     }
@@ -121,6 +125,7 @@ namespace parser
             if (strcmp(argv[i], "-b"    ) == 0) beta                    = atof(argv[i + 1]);
             if (strcmp(argv[i], "-rho"  ) == 0) rho                     = atof(argv[i + 1]);
             if (strcmp(argv[i], "-ls"   ) == 0) ls_flag                 = atoi(argv[i + 1]);
+            if (strcmp(argv[i], "-al"   ) == 0) algo_flag               = atoi(argv[i + 1]);
             if (strcmp(argv[i], "-seed" ) == 0) seed                    = atoi(argv[i + 1]);
             if (strcmp(argv[i], "-k"    ) == 0) k                       = atoi(argv[i + 1]);
         }
@@ -137,7 +142,9 @@ namespace parser
         seed_str  << seed;
         // preparing outputs
         ios::sync_with_stdio(false);
-        flog.open((file_name + "_" + k_str.str() +"_"+ seed_str.str() + ".log").c_str());
+
+        output_file = file_name + "_" + k_str.str() +"_"+ seed_str.str();
+        flog.open((output_file + ".log").c_str());
 
         // printing current settings
         fout << "ACO for Protein Structure PredictionProblem\n";
@@ -152,6 +159,7 @@ namespace parser
         fout << "beta                           : " << beta                                                 << "\n";
         fout << "rho                            : " << rho                                                  << "\n";
         fout << "ls_flag                        : " << ls_flag                                              << "\n";
+        fout << "algo_flag                      : " << algo_flag                                            << "\n";
         fout << "seed                           : " << seed                                                 << "\n";
 
         // change output stream precision
@@ -181,6 +189,11 @@ namespace convert
     {
         p = p % (MAXT/12);
         return p * 12 + h;
+    }
+    bool compare(double a, double b)
+    {
+        if (abs(a-b) <= epsilon) return true;
+        return false;
     }
 }
 
@@ -239,7 +252,7 @@ struct Solution
         p = convert::to_int(x,y,z);
         if (visited.count(p) > 0)
             return INF;
-        double res = 0;
+        double res = E_MJ;
         for(int j = 0; j < 12; ++j)
         {
             p = convert::to_int(x + x0[j], y + y0[j], z + z0[j]);
@@ -289,7 +302,7 @@ namespace ACO
 
     void update_T()
     {
-        int p = 0;;
+        int p = 0;
         for (int i = 1; i < n; ++i)
         {
             for (int j = 0; j < 12; ++j)
@@ -303,34 +316,113 @@ namespace ACO
     {
         Solution sol;
         sol.X[0] = sol.Y[0] = sol.Z[0] = 500;
-        double w[12] , max_w;
+        double w[12] , max_w , min_w;
         int p = 0, h;
-        for (int i = 1; i < n; ++i)
+        h = 0;
+        sol.add(1,h);
+        p = convert::next_direction(p,h);
+        for (int i = 2; i < n; ++i)
         {
             for(int j = 0; j < 12; ++j)
                 w[j] = sol.heuristic(i,j);
             max_w = -INF;
+            min_w = INF;
             for (int j = 0; j < 12; ++j)
                 if (w[j] != INF)
+                {
                     max_w = max(max_w,w[j]);
+                    min_w = min(min_w,w[j]);
+                }
             if (max_w == -INF)
             {
                 ++unfinished_trip;
                 return;
             }
-            max_w += eps;
             for (int j = 0; j < 12; ++j)
                 if (w[j] == INF)
                     w[j] = 0;
-                else w[j] = max_w - w[j];
+                else w[j] = max_w - w[j] + eps ;//+ (max_w - min_w) / 10;
             for (int j = 0; j < 12; ++j)
-                w[j] *= T[i][convert::next_direction(p,j)];
+                w[j] = pow(w[j],alpha) * pow(T[i][convert::next_direction(p,j)],beta);
             h = random_picker::pick(12,w);
             sol.add(i,h);
             p = convert::next_direction(p,h);
         }
         sol.minus_consecutive_neighbors();
         if (sol.E_MJ < Ibest.E_MJ) Ibest = sol;
+    }
+
+    void multi_ants_run()
+    {
+        Solution sol[2][ant_per_round];
+        sol[0][0].X[0] = sol[0][0].Y[0] = sol[0][0].Z[0] = 500;
+        int n_prev_ants = 1, n_cur_ants;
+        int p[2][ant_per_round];
+        int prev_ant, h;
+        double w[ant_per_round][12] , max_w, min_w;
+        double sum;
+        double r;
+        sol[0][0].add(1,0);
+        memset(p,0,sizeof(p));
+        int cur = 0;
+        for(int i = 2; i < n; ++i)
+        {
+            for (int ant = 0; ant < n_prev_ants; ++ant)
+                for (int j = 0; j < 12; ++j)
+                    w[ant][j] = sol[cur][ant].heuristic(i,j);
+            max_w = -INF;
+            min_w = INF;
+            for (int ant = 0; ant < n_prev_ants; ++ant)
+                for (int j = 0; j < 12; ++j)
+                    if (w[ant][j] != INF)
+                    {
+                        max_w = max(max_w,w[ant][j]);
+                        min_w = min(min_w,w[ant][j]);
+                    }
+            for (int ant = 0; ant < n_prev_ants; ++ant)
+                for (int j = 0; j < 12; ++j)
+                    if (w[ant][j] != INF)
+                        w[ant][j] = max_w - w[ant][j] + eps;
+                    else w[ant][j] = 0;
+            for (int ant = 0; ant < n_prev_ants; ++ant)
+                for (int j = 0; j < 12; ++j)
+                    w[ant][j] = pow(w[ant][j],alpha) * pow(T[i][convert::next_direction(p[cur][ant],j)],beta);
+            sum = 0;
+            for (int ant = 0; ant < n_prev_ants; ++ant)
+                for (int j = 0; j < 12; ++j)
+                    sum += w[ant][j];
+            n_cur_ants = 0;
+            for (int ant = 0; ant < ant_per_round; ++ant)
+            {
+                if (convert::compare(sum,0)) break;
+                r = random_picker::get_rand() * sum;
+                prev_ant = 0; h = 0;
+                while (w[prev_ant][h] < r)
+                {
+                    r -= w[prev_ant][h];
+                    ++h;
+                    if (h == 12)
+                    {
+                        h = 0;
+                        ++prev_ant;
+                    }
+                }
+                //cout << prev_ant <<" " << h << " " << sum << endl;
+                sol[1-cur][ant] = sol[cur][prev_ant];
+                sol[1-cur][ant].add(i,h);
+                p[1-cur][ant] = convert::next_direction(p[cur][prev_ant],h);
+                sum -= w[prev_ant][h];
+                w[prev_ant][h] = 0;
+                ++n_cur_ants;
+            }
+            n_prev_ants = n_cur_ants;
+            cur = 1 - cur;
+        }
+        for (int ant = 0; ant < n_prev_ants; ++ant)
+            sol[cur][ant].minus_consecutive_neighbors();
+        for (int ant = 0; ant < n_prev_ants; ++ant)
+            if (sol[cur][ant].E_MJ < Ibest.E_MJ)
+                Ibest = sol[cur][ant];
     }
 
     void run()
@@ -349,8 +441,15 @@ namespace ACO
         {
             fout << "\nRound " << rnd << " :\n";
             Ibest.E_MJ = INF;
-            for (int ant = 0; ant < ant_per_round; ++ant)
-                let_ant_run();
+            if (algo_flag == 0)
+            {
+                for (int ant = 0; ant < ant_per_round; ++ant)
+                    let_ant_run();
+            }
+            if (algo_flag == 1)
+            {
+                multi_ants_run();
+            }
             if (Ibest.E_MJ < Gbest.E_MJ) Gbest = Ibest;
             update_T();
             if (Ibest.E_MJ == prev_E) --count_down;
@@ -379,8 +478,8 @@ namespace ACO
         ostringstream seed_str, k_str;
         k_str << k;
         seed_str  << seed;
-        flog.open((file_name + "_" + k_str.str() +"_"+ seed_str.str() + ".out").c_str());
-        fout << Gbest.E_MJ;
+        flog.open((output_file + ".out").c_str());
+        fout << Gbest.E_MJ<< "\n";
         for (int i = 0 ; i < n; ++i)
             fout << Gbest.X[i]-500 << " " << Gbest.Y[i]-500 << " " << Gbest.Z[i]-500 << "\n";
     }
