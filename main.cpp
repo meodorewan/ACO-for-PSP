@@ -210,7 +210,7 @@ struct Solution
     vector<int> Z;
     vector<int> H;
     double E_MJ;
-    map <int,int> visited;
+    unordered_map <int,int> visited;
 
     Solution()
     {
@@ -376,7 +376,7 @@ namespace ACO
         int p[2][ant_per_round];
         int prev_ant, h;
         double w[ant_per_round][12] , max_w, min_w;
-        double sum;
+        double sum, s[ant_per_round];
         double r;
         sol[0][0].add(1,0);
         memset(p,0,sizeof(p));
@@ -405,28 +405,46 @@ namespace ACO
                     w[ant][j] = pow(w[ant][j],alpha) * pow(T[i][convert::next_direction(p[cur][ant],j)],beta);
             sum = 0;
             for (int ant = 0; ant < n_prev_ants; ++ant)
+            {
+                s[ant] = 0;
                 for (int j = 0; j < 12; ++j)
+                {
                     sum += w[ant][j];
+                    s[ant] += w[ant][j];
+                }
+            }
             n_cur_ants = 0;
             for (int ant = 0; ant < ant_per_round; ++ant)
             {
                 if (convert::compare(sum,0)) break;
                 r = random_picker::get_rand() * sum;
                 prev_ant = 0; h = 0;
+                while (s[prev_ant] < r)
+                {
+                    r -= s[prev_ant];
+                    ++prev_ant;
+                }
                 while (w[prev_ant][h] < r)
                 {
                     r -= w[prev_ant][h];
                     ++h;
-                    if (h == 12)
-                    {
-                        h = 0;
-                        ++prev_ant;
-                    }
                 }
+//                prev_ant = 0; h = 0;
+//                while (w[prev_ant][h] < r)
+//                {
+//                    r -= w[prev_ant][h];
+//                    ++h;
+//                    if (h == 12)
+//                    {
+//                        h = 0;
+//                        ++prev_ant;
+//                    }
+//                }
                 sol[1-cur][ant] = sol[cur][prev_ant];
                 sol[1-cur][ant].add(i,h);
                 p[1-cur][ant] = convert::next_direction(p[cur][prev_ant],h);
                 sum -= w[prev_ant][h];
+                s[prev_ant] -= w[prev_ant][h];
                 w[prev_ant][h] = 0;
                 ++n_cur_ants;
             }
