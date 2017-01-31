@@ -137,13 +137,14 @@ namespace parser
         for (int i = 0; i < n; ++i)
             a[i] = AA.find(s[i]);
         // set file_name
-        ostringstream seed_str, k_str;
+        ostringstream seed_str, k_str , algo_flag_str;
         k_str << k;
         seed_str  << seed;
+        algo_flag_str << algo_flag;
         // preparing outputs
         ios::sync_with_stdio(false);
 
-        output_file = file_name + "_" + k_str.str() +"_"+ seed_str.str();
+        output_file = file_name + "_" + k_str.str() +"_"+ seed_str.str() + "_al = " + algo_flag_str.str();
         flog.open((output_file + ".log").c_str());
 
         // printing current settings
@@ -214,6 +215,14 @@ struct Solution
         H = vector<int> (n,-1);
         E_MJ = 0;
         visited.clear();
+    }
+
+    void add_first_point(int x, int y, int z)
+    {
+        X[0] = x;
+        Y[0] = y;
+        Z[0] = z;
+        visited[convert::to_int(x,y,z)] = a[0];
     }
 
     void add(int i, int j)
@@ -315,7 +324,8 @@ namespace ACO
     void let_ant_run()
     {
         Solution sol;
-        sol.X[0] = sol.Y[0] = sol.Z[0] = 500;
+        sol.add_first_point(500,500,500);
+        //sol.X[0] = sol.Y[0] = sol.Z[0] = 500;
         double w[12] , max_w , min_w;
         int p = 0, h;
         h = 0;
@@ -355,7 +365,8 @@ namespace ACO
     void multi_ants_run()
     {
         Solution sol[2][ant_per_round];
-        sol[0][0].X[0] = sol[0][0].Y[0] = sol[0][0].Z[0] = 500;
+        //sol[0][0].X[0] = sol[0][0].Y[0] = sol[0][0].Z[0] = 500;
+        sol[0][0].add_first_point(500,500,500);
         int n_prev_ants = 1, n_cur_ants;
         int p[2][ant_per_round];
         int prev_ant, h;
@@ -407,7 +418,6 @@ namespace ACO
                         ++prev_ant;
                     }
                 }
-                //cout << prev_ant <<" " << h << " " << sum << endl;
                 sol[1-cur][ant] = sol[cur][prev_ant];
                 sol[1-cur][ant].add(i,h);
                 p[1-cur][ant] = convert::next_direction(p[cur][prev_ant],h);
@@ -443,15 +453,19 @@ namespace ACO
             Ibest.E_MJ = INF;
             if (algo_flag == 0)
             {
+                // tung kien chay
                 for (int ant = 0; ant < ant_per_round; ++ant)
                     let_ant_run();
             }
             if (algo_flag == 1)
             {
+                // cho tat ca kien chay song song
                 multi_ants_run();
             }
             if (Ibest.E_MJ < Gbest.E_MJ) Gbest = Ibest;
+            // cap nhat mui
             update_T();
+            // khoi tao lai mui khi lien tuc tim duoc ket qua giong nhau
             if (Ibest.E_MJ == prev_E) --count_down;
             else
             {
@@ -480,6 +494,7 @@ namespace ACO
         seed_str  << seed;
         flog.open((output_file + ".out").c_str());
         fout << Gbest.E_MJ<< "\n";
+        fout << Gbest.recaculate() << "\n";
         for (int i = 0 ; i < n; ++i)
             fout << Gbest.X[i]-500 << " " << Gbest.Y[i]-500 << " " << Gbest.Z[i]-500 << "\n";
     }
