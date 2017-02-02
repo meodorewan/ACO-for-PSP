@@ -1,0 +1,1075 @@
+ACO for Protein Structure PredictionProblem
+Test                           : 4RXN
+
+Parameter-settings
+number_of_round                : 3000
+ant_per_round                  : 100
+time_limit                     : 2147 (s)
+reset_count_down               : 10
+alpha                          : 1
+beta                           : 2
+rho                            : 0.8
+ls_flag                        : 0
+algo_flag                      : 1
+seed                           : 7
+
+Round 0 :
+Ibest      = -10.63
+Gbest      = -10.63
+count_down = 10
+unfinished_trip = 0
+time = 0.84 (s)
+
+Round 1 :
+Ibest      = -16.18
+Gbest      = -16.18
+count_down = 10
+unfinished_trip = 0
+time = 1.69 (s)
+
+Round 2 :
+Ibest      = -11.61
+Gbest      = -16.18
+count_down = 10
+unfinished_trip = 0
+time = 2.58 (s)
+
+Round 3 :
+Ibest      = -13.23
+Gbest      = -16.18
+count_down = 10
+unfinished_trip = 0
+time = 3.45 (s)
+
+Round 4 :
+Ibest      = -18.65
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 4.34 (s)
+
+Round 5 :
+Ibest      = -15.10
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 5.19 (s)
+
+Round 6 :
+Ibest      = -15.22
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 6.02 (s)
+
+Round 7 :
+Ibest      = -14.21
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 6.86 (s)
+
+Round 8 :
+Ibest      = -15.40
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 7.69 (s)
+
+Round 9 :
+Ibest      = -12.79
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 8.53 (s)
+
+Round 10 :
+Ibest      = -13.57
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 9.39 (s)
+
+Round 11 :
+Ibest      = -14.69
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 10.22 (s)
+
+Round 12 :
+Ibest      = -13.80
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 11.03 (s)
+
+Round 13 :
+Ibest      = -14.74
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 11.83 (s)
+
+Round 14 :
+Ibest      = -14.85
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 12.67 (s)
+
+Round 15 :
+Ibest      = -12.91
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 13.50 (s)
+
+Round 16 :
+Ibest      = -14.03
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 14.31 (s)
+
+Round 17 :
+Ibest      = -13.61
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 15.17 (s)
+
+Round 18 :
+Ibest      = -12.27
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 16.02 (s)
+
+Round 19 :
+Ibest      = -12.37
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 16.83 (s)
+
+Round 20 :
+Ibest      = -16.19
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 17.66 (s)
+
+Round 21 :
+Ibest      = -15.26
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 18.47 (s)
+
+Round 22 :
+Ibest      = -13.47
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 19.27 (s)
+
+Round 23 :
+Ibest      = -13.52
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 20.08 (s)
+
+Round 24 :
+Ibest      = -15.96
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 20.91 (s)
+
+Round 25 :
+Ibest      = -9.74
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 21.72 (s)
+
+Round 26 :
+Ibest      = -12.86
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 22.58 (s)
+
+Round 27 :
+Ibest      = -11.98
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 23.44 (s)
+
+Round 28 :
+Ibest      = -12.98
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 24.28 (s)
+
+Round 29 :
+Ibest      = -13.83
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 25.11 (s)
+
+Round 30 :
+Ibest      = -16.49
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 25.94 (s)
+
+Round 31 :
+Ibest      = -12.84
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 26.75 (s)
+
+Round 32 :
+Ibest      = -12.90
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 27.56 (s)
+
+Round 33 :
+Ibest      = -16.44
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 28.41 (s)
+
+Round 34 :
+Ibest      = -13.22
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 29.28 (s)
+
+Round 35 :
+Ibest      = -13.03
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 30.14 (s)
+
+Round 36 :
+Ibest      = -11.40
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 30.98 (s)
+
+Round 37 :
+Ibest      = -12.26
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 31.81 (s)
+
+Round 38 :
+Ibest      = -14.03
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 32.67 (s)
+
+Round 39 :
+Ibest      = -13.07
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 33.48 (s)
+
+Round 40 :
+Ibest      = -10.22
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 34.34 (s)
+
+Round 41 :
+Ibest      = -11.59
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 35.16 (s)
+
+Round 42 :
+Ibest      = -11.17
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 36.00 (s)
+
+Round 43 :
+Ibest      = -14.06
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 36.80 (s)
+
+Round 44 :
+Ibest      = -10.63
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 37.61 (s)
+
+Round 45 :
+Ibest      = -12.46
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 38.42 (s)
+
+Round 46 :
+Ibest      = -9.94
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 39.22 (s)
+
+Round 47 :
+Ibest      = -14.82
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 40.03 (s)
+
+Round 48 :
+Ibest      = -11.86
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 40.81 (s)
+
+Round 49 :
+Ibest      = -11.76
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 41.64 (s)
+
+Round 50 :
+Ibest      = -12.91
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 42.47 (s)
+
+Round 51 :
+Ibest      = -11.95
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 43.28 (s)
+
+Round 52 :
+Ibest      = -10.73
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 44.11 (s)
+
+Round 53 :
+Ibest      = -11.23
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 44.95 (s)
+
+Round 54 :
+Ibest      = -14.01
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 45.78 (s)
+
+Round 55 :
+Ibest      = -11.84
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 46.59 (s)
+
+Round 56 :
+Ibest      = -8.90
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 47.41 (s)
+
+Round 57 :
+Ibest      = -12.07
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 48.22 (s)
+
+Round 58 :
+Ibest      = -11.79
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 49.02 (s)
+
+Round 59 :
+Ibest      = -10.70
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 49.83 (s)
+
+Round 60 :
+Ibest      = -11.28
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 50.64 (s)
+
+Round 61 :
+Ibest      = -11.34
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 51.48 (s)
+
+Round 62 :
+Ibest      = -11.16
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 52.34 (s)
+
+Round 63 :
+Ibest      = -11.07
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 53.16 (s)
+
+Round 64 :
+Ibest      = -11.20
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 53.97 (s)
+
+Round 65 :
+Ibest      = -10.87
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 54.78 (s)
+
+Round 66 :
+Ibest      = -11.47
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 55.59 (s)
+
+Round 67 :
+Ibest      = -10.68
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 56.42 (s)
+
+Round 68 :
+Ibest      = -9.99
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 57.28 (s)
+
+Round 69 :
+Ibest      = -9.29
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 58.17 (s)
+
+Round 70 :
+Ibest      = -8.70
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 59.20 (s)
+
+Round 71 :
+Ibest      = -11.95
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 60.20 (s)
+
+Round 72 :
+Ibest      = -9.73
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 61.12 (s)
+
+Round 73 :
+Ibest      = -8.67
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 62.09 (s)
+
+Round 74 :
+Ibest      = -9.88
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 63.05 (s)
+
+Round 75 :
+Ibest      = -12.77
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 63.91 (s)
+
+Round 76 :
+Ibest      = -8.77
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 64.78 (s)
+
+Round 77 :
+Ibest      = -10.33
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 65.67 (s)
+
+Round 78 :
+Ibest      = -9.84
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 66.53 (s)
+
+Round 79 :
+Ibest      = -11.41
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 67.42 (s)
+
+Round 80 :
+Ibest      = -13.30
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 68.27 (s)
+
+Round 81 :
+Ibest      = -11.02
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 69.17 (s)
+
+Round 82 :
+Ibest      = -11.92
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 70.02 (s)
+
+Round 83 :
+Ibest      = -11.13
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 70.84 (s)
+
+Round 84 :
+Ibest      = -9.45
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 71.69 (s)
+
+Round 85 :
+Ibest      = -9.70
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 72.47 (s)
+
+Round 86 :
+Ibest      = -9.17
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 73.33 (s)
+
+Round 87 :
+Ibest      = -10.59
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 74.14 (s)
+
+Round 88 :
+Ibest      = -10.44
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 75.03 (s)
+
+Round 89 :
+Ibest      = -9.10
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 75.86 (s)
+
+Round 90 :
+Ibest      = -9.97
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 76.66 (s)
+
+Round 91 :
+Ibest      = -7.97
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 77.45 (s)
+
+Round 92 :
+Ibest      = -10.00
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 78.25 (s)
+
+Round 93 :
+Ibest      = -10.00
+Gbest      = -18.65
+count_down = 9
+unfinished_trip = 0
+time = 79.09 (s)
+
+Round 94 :
+Ibest      = -11.53
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 79.92 (s)
+
+Round 95 :
+Ibest      = -6.80
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 80.72 (s)
+
+Round 96 :
+Ibest      = -10.31
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 81.56 (s)
+
+Round 97 :
+Ibest      = -8.19
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 82.41 (s)
+
+Round 98 :
+Ibest      = -6.69
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 83.27 (s)
+
+Round 99 :
+Ibest      = -11.76
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 84.11 (s)
+
+Round 100 :
+Ibest      = -11.86
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 84.91 (s)
+
+Round 101 :
+Ibest      = -11.25
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 85.78 (s)
+
+Round 102 :
+Ibest      = -8.56
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 86.62 (s)
+
+Round 103 :
+Ibest      = -7.92
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 87.45 (s)
+
+Round 104 :
+Ibest      = -10.49
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 88.34 (s)
+
+Round 105 :
+Ibest      = -10.81
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 89.14 (s)
+
+Round 106 :
+Ibest      = -9.99
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 89.95 (s)
+
+Round 107 :
+Ibest      = -10.81
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 90.75 (s)
+
+Round 108 :
+Ibest      = -9.35
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 91.56 (s)
+
+Round 109 :
+Ibest      = -13.50
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 92.41 (s)
+
+Round 110 :
+Ibest      = -10.02
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 93.23 (s)
+
+Round 111 :
+Ibest      = -9.74
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 94.06 (s)
+
+Round 112 :
+Ibest      = -7.14
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 94.92 (s)
+
+Round 113 :
+Ibest      = -9.68
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 95.77 (s)
+
+Round 114 :
+Ibest      = -13.54
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 96.62 (s)
+
+Round 115 :
+Ibest      = -7.43
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 97.48 (s)
+
+Round 116 :
+Ibest      = -9.45
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 98.30 (s)
+
+Round 117 :
+Ibest      = -10.52
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 99.20 (s)
+
+Round 118 :
+Ibest      = -6.51
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 100.06 (s)
+
+Round 119 :
+Ibest      = -12.45
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 100.86 (s)
+
+Round 120 :
+Ibest      = -10.08
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 101.69 (s)
+
+Round 121 :
+Ibest      = -11.09
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 102.55 (s)
+
+Round 122 :
+Ibest      = -7.38
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 103.33 (s)
+
+Round 123 :
+Ibest      = -8.93
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 104.14 (s)
+
+Round 124 :
+Ibest      = -11.88
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 104.95 (s)
+
+Round 125 :
+Ibest      = -8.76
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 105.80 (s)
+
+Round 126 :
+Ibest      = -10.68
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 106.64 (s)
+
+Round 127 :
+Ibest      = -11.08
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 107.50 (s)
+
+Round 128 :
+Ibest      = -13.25
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 108.34 (s)
+
+Round 129 :
+Ibest      = -10.90
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 109.19 (s)
+
+Round 130 :
+Ibest      = -9.30
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 110.05 (s)
+
+Round 131 :
+Ibest      = -9.59
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 110.88 (s)
+
+Round 132 :
+Ibest      = -11.84
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 111.75 (s)
+
+Round 133 :
+Ibest      = -9.43
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 112.58 (s)
+
+Round 134 :
+Ibest      = -9.35
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 113.41 (s)
+
+Round 135 :
+Ibest      = -13.27
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 114.28 (s)
+
+Round 136 :
+Ibest      = -10.02
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 115.11 (s)
+
+Round 137 :
+Ibest      = -11.46
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 115.92 (s)
+
+Round 138 :
+Ibest      = -9.51
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 116.72 (s)
+
+Round 139 :
+Ibest      = -9.51
+Gbest      = -18.65
+count_down = 9
+unfinished_trip = 0
+time = 117.55 (s)
+
+Round 140 :
+Ibest      = -8.72
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 118.39 (s)
+
+Round 141 :
+Ibest      = -10.70
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 119.22 (s)
+
+Round 142 :
+Ibest      = -12.42
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 120.02 (s)
+
+Round 143 :
+Ibest      = -10.65
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 120.86 (s)
+
+Round 144 :
+Ibest      = -10.21
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 121.70 (s)
+
+Round 145 :
+Ibest      = -10.43
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 122.50 (s)
+
+Round 146 :
+Ibest      = -11.28
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 123.36 (s)
+
+Round 147 :
+Ibest      = -11.51
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 124.20 (s)
+
+Round 148 :
+Ibest      = -9.70
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 125.08 (s)
+
+Round 149 :
+Ibest      = -12.97
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 125.89 (s)
+
+Round 150 :
+Ibest      = -10.27
+Gbest      = -18.65
+count_down = 10
+unfinished_trip = 0
+time = 126.70 (s)
+
+Round 151 :
+Ibest      = -12.58
+Gbest      = 

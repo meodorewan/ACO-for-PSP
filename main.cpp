@@ -5,6 +5,10 @@
 #define eps 0.01
 #define INF 123456789
 #define epsilon 0.0000001
+#define sqr(x) ((x) * (x))
+
+#define y0 ydsaddsa
+#define y1 ydfdsaddsa
 
 using namespace std;
 ofstream flog;                                          // file log
@@ -24,10 +28,12 @@ int k;                                                  // so luong huong duoc l
 string s;                                               // xau nhap vao
 int n;                                                  // do dai xau
 const string AA = "CMFILVWYAGTSQNEDHRKP";               // xau bieu dien cac amino acid
+const bool hydrophobic[20] = {0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1};
 int a[MAXN];                                            // chuyen tu xau s sang so
 int MAXT;                                               // 12 mu k
 int algo_flag;                                          // loai thuat toan
 vector<double> T[MAXN];                                 // ma tran mui
+bool isHydrophobic['Z' + 1];
 int x0[12] = { 1,-1,-1, 0, 1,-1, 1, 1, 0, 0,-1, 0};
 int y0[12] = { 1,-1, 1, 1, 0, 0,-1, 0, 1,-1, 0,-1};
 int z0[12] = { 0, 0, 0,-1, 1,-1, 0,-1, 1,-1, 1, 1};
@@ -100,8 +106,8 @@ namespace parser
         ant_per_round           = 100;
         time_limit              = INT_MAX;
         reset_count_down        = 10;
-        alpha                   = 1.0;
-        beta                    = 1.0;
+        alpha                   = 1;
+        beta                    = 2;
         rho                     = 0.3;
         ls_flag                 = 0;
         algo_flag               = 0;
@@ -129,6 +135,9 @@ namespace parser
             if (strcmp(argv[i], "-seed" ) == 0) seed                    = atoi(argv[i + 1]);
             if (strcmp(argv[i], "-k"    ) == 0) k                       = atoi(argv[i + 1]);
         }
+        //determine Hydrophobic amino acids
+        for (int i = 0; i < 20; i++)
+            isHydrophobic[AA[i]] = hydrophobic[i];
 
         // input
         freopen((file_name + ".in").c_str(),"r",stdin);
@@ -293,7 +302,105 @@ struct Solution
 
 namespace Local_search
 {
+    /*
+    struct TabuList {
+        vector<Solution> l;
+        bool contain(Solution sol) {
+            for (int i = 0; i < l.size(); i++)
+                if (l[i] == sol)
+                    return false;
+            return true;
+        }
 
+        void add(Solution sol) {
+            l.push_back(sol);
+        }
+    };
+    */
+
+    double distance(double x, double y, double z, double x1, double y1, double z1) {
+        return sqr(x - x1) + sqr(y - y1) + sqr(z - z1);
+    }
+
+    Solution selectMove(Solution sol, int pos) {
+        double x=0,y=0,z=0,cnt=0;
+        for (int i = 0; i < n; i++)
+            if (isHydrophobic[s[i]] == isHydrophobic[s[pos]]) {
+                x += sol.X[i];
+                y += sol.Y[i];
+                z += sol.Z[i];
+                cnt++;
+            }
+        if (cnt == 0)       ///chuoi amino acids nay khong co H-core hoac la P-core
+            return sol;
+
+        ///(x,y,z) la H-core cua chuoi
+        x /= cnt;
+        y /= cnt;
+        z /= cnt;
+
+        int best_x = -1, best_y = -1, best_z = -1;
+
+        for (int j = 0; j < 12; j++){
+            int new_x = sol.X[pos] + x0[j];
+            int new_y = sol.Y[pos] + y0[j];
+            int new_z = sol.Z[pos] + z0[j];
+
+            if (pos == 0) {
+                if (!sol.visited.count(convert::to_int(new_x, new_y, new_z)) && convert::compare(distance(sol.X[pos+1], sol.Y[pos+1], sol.Z[pos+1], new_x, new_y, new_z), 2))
+                    if (distance(new_x, new_y, new_z, x, y, z) < distance(sol.X[pos], sol.Y[pos], sol.Z[pos], x, y, z)){
+                        ///a successful pull move
+                        if (distance(new_x, new_y, new_z, x, y, z) < distance(best_x, best_y, best_z, x, y, z)){
+                            best_x = new_x;
+                            best_y = new_y;
+                            best_z = new_z;
+                        }
+                    }
+            } else if (pos == n - 1) {
+                if (!sol.visited.count(convert::to_int(new_x, new_y, new_z)) && distance(sol.X[pos-1], sol.Y[pos-1], sol.Z[pos-1], new_x, new_y, new_z) == 2)
+                    if (distance(new_x, new_y, new_z, x, y, z) < distance(sol.X[pos], sol.Y[pos], sol.Z[pos], x, y, z)){
+                        ///a successful pull move
+                        if (distance(new_x, new_y, new_z, x, y, z) < distance(best_x, best_y, best_z, x, y, z)){
+                            best_x = new_x;
+                            best_y = new_y;
+                            best_z = new_z;
+                        }
+                    }
+            } else {
+                if (!sol.visited.count(convert::to_int(new_x, new_y, new_z))
+                    && distance(sol.X[pos+1], sol.Y[pos+1], sol.Z[pos+1], new_x, new_y, new_z) == 2
+                    && distance(sol.X[pos-1], sol.Y[pos-1], sol.Z[pos-1], new_x, new_y, new_z) == 2
+                    && distance(new_x, new_y, new_z, x, y, z) < distance(sol.X[pos], sol.Y[pos], sol.Z[pos], x, y, z)){
+                        ///a successful pull move
+                        if (distance(new_x, new_y, new_z, x, y, z) < distance(best_x, best_y, best_z, x, y, z)){
+                            best_x = new_x;
+                            best_y = new_y;
+                            best_z = new_z;
+                        }
+                    }
+            }
+        }
+        if (best_x != -1 && best_y != -1 && best_z != -1){
+            sol.visited.erase(convert::to_int(sol.X[pos], sol.X[pos], sol.X[pos]));
+            sol.X[pos] = best_x;
+            sol.Y[pos] = best_y;
+            sol.Z[pos] = best_z;
+            sol.visited[convert::to_int(sol.X[pos], sol.X[pos], sol.X[pos])] = 1;
+        }
+        return sol;
+    }
+
+    Solution local_search(Solution sol) {
+        for (int i = 0; i < n; i++) {
+            Solution newSol = selectMove(sol, i);
+
+            newSol.recaculate();
+            if (newSol.E_MJ < sol.E_MJ)
+                sol = newSol;
+        }
+
+        return sol;
+    }
 }
 
 namespace ACO
@@ -395,6 +502,7 @@ namespace ACO
                     if (w[ant][j] != INF)
                         w[ant][j] = max_w - w[ant][j] + eps;
                     else w[ant][j] = 0;
+
             for (int ant = 0; ant < n_prev_ants; ++ant)
                 for (int j = 0; j < 12; ++j)
                     w[ant][j] = pow(w[ant][j],alpha) * pow(T[i][convert::next_direction(p[cur][ant],j)],beta);
@@ -448,9 +556,12 @@ namespace ACO
         }
         for (int ant = 0; ant < n_prev_ants; ++ant)
             sol[cur][ant].minus_consecutive_neighbors();
-        for (int ant = 0; ant < n_prev_ants; ++ant)
+        for (int ant = 0; ant < n_prev_ants; ++ant) {
+            sol[cur][ant] = Local_search::local_search(sol[cur][ant]); ///ap dung local search cho solution hien tai
+            sol[cur][ant].recaculate();
             if (sol[cur][ant].E_MJ < Ibest.E_MJ)
                 Ibest = sol[cur][ant];
+        }
     }
 
     void run()

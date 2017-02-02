@@ -20,6 +20,7 @@
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="-r 10000 -ant 100 -k 3 -rho 0.3 -inst 3ON7 -seed 7 -al 1" />
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>
@@ -33,10 +34,13 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="4RXN.in" />
+		<Unit filename="ACOPSP.depend" />
+		<Unit filename="ACOPSP.layout" />
 		<Unit filename="Guided-macro-mutation-in-a-graded-energy-based-genetic-algorithm.pdf" />
-		<Unit filename="MJEnergyModel.txt" />
 		<Unit filename="README.md" />
 		<Unit filename="main.cpp" />
+		<Unit filename="obj/Debug/main.o" />
+		<Unit filename="rashid2013.pdf" />
 		<Unit filename="tools/createMJEnergyModel.cpp" />
 		<Extensions>
 			<code_completion />
