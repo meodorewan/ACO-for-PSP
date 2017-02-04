@@ -107,7 +107,7 @@ namespace parser
         time_limit              = INT_MAX;
         reset_count_down        = 10;
         alpha                   = 1;
-        beta                    = 2;
+        beta                    = 1;
         rho                     = 0.3;
         ls_flag                 = 0;
         algo_flag               = 0;
@@ -133,6 +133,7 @@ namespace parser
             if (strcmp(argv[i], "-ls"   ) == 0) ls_flag                 = atoi(argv[i + 1]);
             if (strcmp(argv[i], "-al"   ) == 0) algo_flag               = atoi(argv[i + 1]);
             if (strcmp(argv[i], "-seed" ) == 0) seed                    = atoi(argv[i + 1]);
+            if (strcmp(argv[i], "-k"    ) == 0) k                       = atoi(argv[i + 1]);
             if (strcmp(argv[i], "-k"    ) == 0) k                       = atoi(argv[i + 1]);
         }
         //determine Hydrophobic amino acids
@@ -295,6 +296,7 @@ struct Solution
         res = res / 2;
         for (int i = 1; i < n; ++i)
             res -= MJ_ENERGY[a[i]][a[i-1]];
+        E_MJ = res;
         return res;
     }
 
@@ -334,7 +336,7 @@ namespace Local_search
         if (cnt == 0)       ///chuoi amino acids nay khong co H-core hoac la P-core
             return sol;
 
-        ///(x,y,z) la H-core cua chuoi
+        ///(x,y,z) la H/P-core cua chuoi
         x /= cnt;
         y /= cnt;
         z /= cnt;
@@ -381,11 +383,9 @@ namespace Local_search
             }
         }
         if (best_x != -1 && best_y != -1 && best_z != -1){
-            sol.visited.erase(convert::to_int(sol.X[pos], sol.X[pos], sol.X[pos]));
             sol.X[pos] = best_x;
             sol.Y[pos] = best_y;
             sol.Z[pos] = best_z;
-            sol.visited[convert::to_int(sol.X[pos], sol.X[pos], sol.X[pos])] = 1;
         }
         return sol;
     }
@@ -557,8 +557,11 @@ namespace ACO
         for (int ant = 0; ant < n_prev_ants; ++ant)
             sol[cur][ant].minus_consecutive_neighbors();
         for (int ant = 0; ant < n_prev_ants; ++ant) {
-            sol[cur][ant] = Local_search::local_search(sol[cur][ant]); ///ap dung local search cho solution hien tai
-            sol[cur][ant].recaculate();
+
+            if (ls_flag) {
+                sol[cur][ant] = Local_search::local_search(sol[cur][ant]); ///ap dung local search cho solution hien tai
+                sol[cur][ant].recaculate();
+            }
             if (sol[cur][ant].E_MJ < Ibest.E_MJ)
                 Ibest = sol[cur][ant];
         }
