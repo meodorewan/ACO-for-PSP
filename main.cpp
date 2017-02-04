@@ -341,7 +341,7 @@ namespace Local_search
         y /= cnt;
         z /= cnt;
 
-        int best_x = -1, best_y = -1, best_z = -1;
+        int best_x = -1, best_y = -1, best_z = -1, h_best = -1;
 
         for (int j = 0; j < 12; j++){
             int new_x = sol.X[pos] + x0[j];
@@ -356,36 +356,42 @@ namespace Local_search
                             best_x = new_x;
                             best_y = new_y;
                             best_z = new_z;
+                            h_best = j;
                         }
                     }
             } else if (pos == n - 1) {
-                if (!sol.visited.count(convert::to_int(new_x, new_y, new_z)) && distance(sol.X[pos-1], sol.Y[pos-1], sol.Z[pos-1], new_x, new_y, new_z) == 2)
+                if (!sol.visited.count(convert::to_int(new_x, new_y, new_z)) && convert::compare(distance(sol.X[pos-1], sol.Y[pos-1], sol.Z[pos-1], new_x, new_y, new_z), 2))
                     if (distance(new_x, new_y, new_z, x, y, z) < distance(sol.X[pos], sol.Y[pos], sol.Z[pos], x, y, z)){
                         ///a successful pull move
                         if (distance(new_x, new_y, new_z, x, y, z) < distance(best_x, best_y, best_z, x, y, z)){
                             best_x = new_x;
                             best_y = new_y;
                             best_z = new_z;
+                            h_best = j;
                         }
                     }
             } else {
                 if (!sol.visited.count(convert::to_int(new_x, new_y, new_z))
-                    && distance(sol.X[pos+1], sol.Y[pos+1], sol.Z[pos+1], new_x, new_y, new_z) == 2
-                    && distance(sol.X[pos-1], sol.Y[pos-1], sol.Z[pos-1], new_x, new_y, new_z) == 2
+                    && convert::compare(distance(sol.X[pos+1], sol.Y[pos+1], sol.Z[pos+1], new_x, new_y, new_z), 2)
+                    && convert::compare(distance(sol.X[pos-1], sol.Y[pos-1], sol.Z[pos-1], new_x, new_y, new_z), 2)
                     && distance(new_x, new_y, new_z, x, y, z) < distance(sol.X[pos], sol.Y[pos], sol.Z[pos], x, y, z)){
                         ///a successful pull move
                         if (distance(new_x, new_y, new_z, x, y, z) < distance(best_x, best_y, best_z, x, y, z)){
                             best_x = new_x;
                             best_y = new_y;
                             best_z = new_z;
+                            h_best = j;
                         }
                     }
             }
         }
         if (best_x != -1 && best_y != -1 && best_z != -1){
+            sol.visited.erase(convert::to_int(sol.X[pos], sol.Y[pos], sol.Z[pos]));
             sol.X[pos] = best_x;
             sol.Y[pos] = best_y;
             sol.Z[pos] = best_z;
+            sol.H[pos] = h_best;
+            sol.visited[convert::to_int(sol.X[pos], sol.Y[pos], sol.Z[pos])] = h_best;
         }
         return sol;
     }
