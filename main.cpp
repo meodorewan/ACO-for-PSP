@@ -20,9 +20,14 @@ string s;                                               // xau nhap vao
 int n;                                                  // do dai xau
 const string AA = "CMFILVWYAGTSQNEDHRKP";               // xau bieu dien cac amino acid
 vector<double> T[MAXN];                                 // ma tran mui
-int x0[12] = { 1,-1,-1, 0, 1,-1, 1, 1, 0, 0,-1, 0};
-int y0[12] = { 1,-1, 1, 1, 0, 0,-1, 0, 1,-1, 0,-1};
-int z0[12] = { 0, 0, 0,-1, 1,-1, 0,-1, 1,-1, 1, 1};
+
+// y0 trung ten voi ham trong math.h
+namespace directions
+{
+    int x0[12] = { 1,-1,-1, 0, 1,-1, 1, 1, 0, 0,-1, 0};
+    int y0[12] = { 1,-1, 1, 1, 0, 0,-1, 0, 1,-1, 0,-1};
+    int z0[12] = { 0, 0, 0,-1, 1,-1, 0,-1, 1,-1, 1, 1};
+}
 
 const double MJ_ENERGY[20][20] = {                      //ma tran MJ energy
     {-1.06, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -194,10 +199,11 @@ struct Solution
         X[i] = x;
         Y[i] = y;
         Z[i] = z;
+
         int p;
         for(int j = 0; j < 12; ++j)
         {
-            p = convert::to_int(x + x0[j], y + y0[j], z + z0[j]);
+            p = convert::to_int(x + directions::x0[j], y + directions::y0[j], z + directions::z0[j]);
             if(visited.count(p) > 0)
                 E_MJ += MJ_ENERGY[visited[p]][amino_acid];
         }

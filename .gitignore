@@ -1,0 +1,5 @@
+*.depend
+*.layout
+obj/
+cmake-build-debug/
+.idea/
