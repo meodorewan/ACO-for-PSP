@@ -233,9 +233,9 @@ struct Solution
     void add(int i, int j)
     {
         int x,y,z;
-        x = X[i-1] + x0[j];
-        y = Y[i-1] + y0[j];
-        z = Z[i-1] + z0[j];
+        x = X[i-1] + directions::x0[j];
+        y = Y[i-1] + directions::y0[j];
+        z = Z[i-1] + directions::z0[j];
         visited[convert::to_int(x,y,z)] = a[i];
         X[i] = x;
         Y[i] = y;
@@ -259,9 +259,9 @@ struct Solution
     int heuristic(int i, int j)
     {
         int x,y,z;
-        x = X[i-1] + x0[j];
-        y = Y[i-1] + y0[j];
-        z = Z[i-1] + z0[j];
+        x = X[i-1] + directions::x0[j];
+        y = Y[i-1] + directions::y0[j];
+        z = Z[i-1] + directions::z0[j];
         int p;
         p = convert::to_int(x,y,z);
         if (visited.count(p) > 0)
@@ -269,7 +269,7 @@ struct Solution
         double res = E_MJ;
         for(int j = 0; j < 12; ++j)
         {
-            p = convert::to_int(x + x0[j], y + y0[j], z + z0[j]);
+            p = convert::to_int(x + directions::x0[j], y + directions::y0[j], z + directions::z0[j]);
             if(visited.count(p) > 0)
                 res += MJ_ENERGY[visited[p]][a[i]];
         }
@@ -283,7 +283,7 @@ struct Solution
         {
             for (int j = 0; j < 12; ++j)
             {
-                p = convert::to_int(X[i] + x0[j], Y[i] + y0[j], Z[i] + z0[j]);
+                p = convert::to_int(X[i] + directions::x0[j], Y[i] + directions::y0[j], Z[i] + directions::z0[j]);
                 if(visited.count(p) > 0)
                     res += MJ_ENERGY[visited[p]][a[i]];
             }
